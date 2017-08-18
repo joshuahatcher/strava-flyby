@@ -3,14 +3,14 @@ const express = require('express');
 const url = require('url');
 
 const PORT = 8080;
+const API_KEYS = require('./api-keys'); // gitignored
 const app = express();
-const apiKeys = require('./api-keys'); // gitignored
 
 app.use(express.static(__dirname + '/dist'));
 
 app.use('/auth', (req, res) => {
   const code = url.parse(req.url, true).query.code;
-  const body = `client_id=${apiKeys.id}&client_secret=${apiKeys.secret}&code=${code}`;
+  const body = `client_id=${API_KEYS.id}&client_secret=${API_KEYS.secret}&code=${code}`;
 
   fetch(
     'https://www.strava.com/oauth/token',
