@@ -24,6 +24,6 @@ You will only need to run steps 1-6 once.
 9. If you close your browser and ever want to run this app again, simply run steps 7-8 again (assuming you didn't delete your api-keys.js file).
 
 ## Future Updates
-Eventually, I plan to allow users to filter their connections across varying dimensions. This will allow users to find the connections that would be most useful for running companions (similar pace), gear advice (use similar gear), etc.
+Eventually, I plan to allow users to filter their connections across varying dimensions. This will allow users to find their connections that would make the best running companions (similar pace), provide the best gear advice (use similar gear), etc.
 
-The ultimate goal of FlyBy is to make it into a sort of friend-making/dating app for athletes. I would like it to have users actually sign up as users *with* FlyBy (rather than just allowing them to use it through Strava). With its own users stored in a database, the app will ingest in data not stored in Strava that the users voluntarily provide, such as extra photos, sexual preference, etc. to help users connect with others based not solely on the dimensions Strava provides. This is a bit down the road, though.
+My ultimate goal of FlyBy is to make it into a sort of friend-making/dating app for athletes. I would like it to have users actually sign up as users *with* FlyBy (rather than just accessing them through Strava data). With its own users stored in a database, the app will ingest data not stored in Strava that the users voluntarily provide, such as extra photos, sexual preference, etc. to help users connect with others based not solely on the dimensions Strava provides, and make matches accordingly. This is a bit down the road, though.
