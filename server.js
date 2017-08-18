@@ -27,12 +27,20 @@ app.use('/auth', (req, res) => {
 });
 
 app.get('/athletes', (req, res) => {
+  sendRequest(req, res, 'https://www.strava.com/api/v3/athletes');
+});
+
+app.get('/athlete/:id', (req, res) => {
+  sendRequest(req, res, `https://www.strava.com/api/v3/athletes/${req.params.id}`);
+})
+
+function sendRequest(req, res, apiUrl) {
   const token = url.parse(req.url, true).query.access_token;
 
-  fetch(`https://www.strava.com/api/v3/athletes?access_token=${token}`)
+  return fetch(`${apiUrl}?access_token=${token}`)
     .then(response => response.json())
     .then(json => res.send(json));
-});
+}
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
