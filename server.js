@@ -4,6 +4,7 @@ const url = require('url');
 
 const PORT = 8080;
 const API_KEYS = require('./api-keys'); // gitignored
+const API_URL = 'https://www.strava.com/api/v3';
 const app = express();
 
 app.use(express.static(__dirname + '/dist'));
@@ -26,12 +27,16 @@ app.use('/auth', (req, res) => {
     });
 });
 
+app.get('/self', (req, res) => {
+  sendRequest(req, res, `${API_URL}/athlete`);
+})
+
 app.get('/athletes', (req, res) => {
-  sendRequest(req, res, 'https://www.strava.com/api/v3/athletes');
+  sendRequest(req, res, `${API_URL}/athletes`);
 });
 
 app.get('/athlete/:id', (req, res) => {
-  sendRequest(req, res, `https://www.strava.com/api/v3/athletes/${req.params.id}`);
+  sendRequest(req, res, `${API_URL}/athletes/${req.params.id}`);
 })
 
 function sendRequest(req, res, apiUrl) {

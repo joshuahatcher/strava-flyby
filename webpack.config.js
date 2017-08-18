@@ -1,6 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const serverConfig = require('./serverConfig');
+
+var lessRules = {
+  fallback: 'style-loader',
+  use: [ 'css-loader', 'less-loader' ]
+};
 
 const baseConfig = {
   devtool: 'source-map',
@@ -11,13 +17,6 @@ const baseConfig = {
     filename: 'js/app.bundle.js',
     path: path.join(__dirname, 'dist')
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'FlyBy',
-      template: 'src/index.html',
-      filename: 'index.html'
-    })
-  ],
   // devServer: serverConfig,
   module: {
     rules: [
@@ -32,14 +31,18 @@ const baseConfig = {
       },
       {
         test: /\.less$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'less-loader' }
-        ]
+        loader: ExtractTextPlugin.extract(lessRules)
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'FlyBy',
+      template: 'src/index.html',
+      filename: 'index.html'
+    }),
+    new ExtractTextPlugin('css/main.css')
+  ]
 };
 
 module.exports = baseConfig;

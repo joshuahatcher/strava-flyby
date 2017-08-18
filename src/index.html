@@ -1,14 +1,21 @@
 <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Slab" rel="stylesheet">
 
-<div class="block centered w-wide">
-  <h1 class="centered">Welcome to <span class="alert">FlyBy</span></h1>
+<div class="block center-children loading">
+  <img src="http://eleccionesup1.up.edu.pe:2121/Common/Images/PreLoaders/Waiting_4.gif" />
+</div>
+<div class="block centered w-wide is-hidden loaded">
+  <h1 class="centered alert">FlyBy</h1>
+  <div class="profile-header profile is-hidden logged-in">
+    <p>Welcome, <span id="selfName"></span>!</p>
+    <img id="selfImg" class="with-margin--left" />
+  </div>
 
   <div id="loginContainer">
     <p>FlyBy uses the API of the athletic activity tracking app, Strava, to help you find other athletes with similar practices to you. In order to use FlyBy, you will need a Strava account. If you already have one, log in below.</p>
     <button id="login">Log in with Strava</button>    
   </div>
 
-  <div id="mainContainer" class="block centered with-padding is-hidden shaded">
+  <div id="mainContainer" class="block centered with-padding is-hidden shaded logged-in">
     <button id="getAthletes">Get athletes</button>
     <div id="athletesList" class="flex flex-wrap center-children--h"></div>
   </div>  

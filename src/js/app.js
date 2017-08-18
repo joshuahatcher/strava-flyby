@@ -1,4 +1,4 @@
-import 'style-loader!../css/main.less';
+import '../css/main.less';
 
 import helpers from './helpers';
 import api from './api';
@@ -9,16 +9,30 @@ consts.accessToken = helpers.getCookie('flyby_access_token')
 function init() {
   const loginContainer = document.querySelector('#loginContainer');
   const loginBtn = loginContainer.querySelector('#login');
-  const mainContainer = document.querySelector('#mainContainer');
+  const loggedInContainers = document.querySelectorAll('.logged-in');
   const getAthletesBtn = mainContainer.querySelector('#getAthletes');
 
   if (consts.accessToken) {
+    getCurrentUser();
+
     loginContainer.classList.add('is-hidden');
-    mainContainer.classList.remove('is-hidden');
+    loggedInContainers.forEach(block => block.classList.remove('is-hidden'));
     getAthletesBtn.addEventListener('click', getAthletes);
   } else {
     loginBtn.addEventListener('click', authenticateUser);
   }
+
+  document.querySelectorAll('.loaded').forEach(block => block.classList.remove('is-hidden'));
+  document.querySelectorAll('.loading').forEach(block => block.classList.add('is-hidden'));
+}
+
+function getCurrentUser() {
+  api.get('/self').then(response => {
+    consts.self = response;
+
+    document.querySelector('#selfName').innerHTML = response.firstname;
+    document.querySelector('#selfImg').setAttribute('src', response.profile_medium);
+  });
 }
 
 function authenticateUser() {
@@ -42,9 +56,9 @@ function getAthletes() {
         'https://strava.com/assets/avatar/athlete/large-63758b9942e3f074c3ecb84db07928ee.png' :
         athlete.profile_medium;
 
-      list.innerHTML += '<div class="profile flex column center-children">' +
-        `<img src="${athleteImg}" />` +
-        `<span>${athlete.firstname} ${athlete.lastname}</span><br>` +
+      list.innerHTML += '<div class="profile squared flex column center-children">' +
+        `<img class="with-margin--less" src="${athleteImg}" />` +
+        `<span class="block">${athlete.firstname} ${athlete.lastname}</span><br>` +
         '</div>';
     })
   }, e => console.log(e));

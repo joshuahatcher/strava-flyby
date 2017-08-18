@@ -1,16 +1,22 @@
+.profile-header {
+  .absolute(0.5em, 1em);
+  display: flex;
+
+  @media (max-width: @x-medium) {
+    display: none;
+  }
+}
+
 .profile {
-  width: 10em;
-  height: 10em;
-  text-align: center;
+  &.squared {
+    .square(10em);
+    text-align: center;
+  }
 
   img {
     width: 4em;
     height: 4em;
     border-radius: 50%;
     box-shadow: 0 1px 5px 0;
-    margin: 0 0 0.5em;
-  }
-  span {
-    display: block;
   }
 }
