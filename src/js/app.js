@@ -29,7 +29,7 @@ function authenticateUser() {
 }
 
 function getAthletes() {
-  api.get('/athletes', 'GET').then(response => {
+  api.get('/athletes').then(response => {
     const list = document.querySelector('#athletesList');
 
     if (response.errno) {
