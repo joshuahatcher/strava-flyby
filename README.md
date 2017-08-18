@@ -7,7 +7,7 @@ FlyBy is intended to provide a method of sorting through a Strava user's connect
 
 This app is used as a context for me to practice using environments/frameworks I am less familiar with (in this case, Node and React) and it is still very much in development phase. However, I am rolling out its features iteratively, starting with the basic ability to log in and view connected athletes in a browser UI. For future updates, please see below under [Future Updates](#user-content-future-updates).
 
-## Running the app
+## Running the app locally
 You can run this app on your local system, but first you must set up private keys in order to properly authenticate with the Strava API's OAuth flow. __NOTE:__ To use this app, you will have to have an account with Strava. You can sign up for a free account at http://strava.com.
 
 ### Steps
