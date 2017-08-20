@@ -22,6 +22,7 @@ app.use('/auth', (req, res) => {
   )
     .then(response => response.json())
     .then((json) => {
+      console.log(json);
       res.cookie('flyby_access_token', json.access_token);
       res.redirect('/');
     });

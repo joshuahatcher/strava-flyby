@@ -12,12 +12,13 @@ function init() {
   const loggedInContainers = document.querySelectorAll('.logged-in');
   const getAthletesBtn = mainContainer.querySelector('#getAthletes');
 
-  if (consts.accessToken) {
-    getCurrentUser();
+  if (consts.accessToken && consts.accessToken !== 'undefined') {
+    getSelf();
+    getFriends(); // TODO - Need to wait for this request to return before we do anything
 
     loginContainer.classList.add('is-hidden');
     loggedInContainers.forEach(block => block.classList.remove('is-hidden'));
-    getAthletesBtn.addEventListener('click', getAthletes);
+    getAthletesBtn.addEventListener('click', getRunningBuddies);
   } else {
     loginBtn.addEventListener('click', authenticateUser);
   }
@@ -26,9 +27,85 @@ function init() {
   document.querySelectorAll('.loading').forEach(block => block.classList.add('is-hidden'));
 }
 
-function getCurrentUser() {
+function getFriends() {
+  return api.get(`https://www.strava.com/api/v3/athlete/friends`, { per_page: 200 }).then(friends => {
+    consts.friends = friends;
+  });
+}
+
+// TODO: Cache these results in friends constant so don't have to make the request if button clicked again.
+function getRunningBuddies() {
+  api.get('https://www.strava.com/api/v3/activities/following', { per_page: 200 })
+    .then(activities => {
+      const runs = activities.filter(activity => activity.type === 'Run');
+      const activitiesMap = sortActivitiesByAthlete(runs);
+      const paceMap = getAllPaces(activitiesMap);
+
+      console.log(paceMap);
+    });
+}
+
+function sortActivitiesByAthlete(activities) {
+  return activities.reduce((activityGroups, activity) => {
+    let athleteId = activity.athlete.firstname;
+    if (activityGroups[athleteId]) {
+      activityGroups[athleteId].push(activity);
+    } else {
+      activityGroups[athleteId] = [ activity ];
+    }
+
+    return activityGroups;
+  }, {});
+}
+
+function getAllPaces(activityMap) {
+  let paceMap = {};
+
+  for (let athlete in activityMap) {
+    let activities = activityMap[athlete];
+
+    paceMap[athlete] = getAveragePace(activities);
+  }
+
+  return paceMap;
+}
+
+function getAveragePace(activities) {
+  const paceParams = activities.reduce((totals, activity) => {
+    totals.distance += activity.distance;
+    totals.time += activity.moving_time;
+
+    return totals;
+  }, { distance: 0, time: 0 });
+
+  return getPaceObject(paceParams);
+}
+
+function getPaceObject(params) {
+  const pace = (params.time / 60) / (params.distance / 1609.34);
+
+  return {
+    pace,
+    pace_legible: getLegiblePace(pace)
+  };
+}
+
+function getLegiblePace(pace) {
+  const minutes = Math.floor(pace);
+  let seconds = Math.round(60 * (pace - minutes));
+
+  seconds = seconds.toString().length === 1 ? '0' + seconds : seconds;
+
+  return `${minutes}:${seconds}`;
+}
+
+function getSelf() {
   api.get('/self').then(response => {
     consts.self = response;
+    api.get(`https://www.strava.com/api/v3/athletes/${response.id}/stats`).then(response => {
+      consts.self.pace = getPaceObject(response.recent_run_totals);
+    });
+
 
     document.querySelector('#selfName').innerHTML = response.firstname;
     document.querySelector('#selfImg').setAttribute('src', response.profile_medium);
