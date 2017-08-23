@@ -33,7 +33,6 @@ function getFriends() {
   });
 }
 
-// TODO: Cache these results in friends constant so don't have to make the request if button clicked again.
 function getRunningBuddies() {
   api.get('https://www.strava.com/api/v3/activities/following', { per_page: 200 })
     .then(activities => {
