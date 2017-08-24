@@ -2,6 +2,12 @@
 @import '../../../css/variables';
 
 .profile {
+  .profile-photo.squared {
+    .square(8em);
+  }
+}
+
+.profile-photo {
   &.squared {
     .square(10em);
     text-align: center;
@@ -16,7 +22,7 @@
 }
 
 @media (max-width: @x-narrow) {
-  .profile.squared {
+  .profile-photo.squared {
     .square(8em);
   }
 }

@@ -34,10 +34,6 @@ app.use('/auth', (req, res) => {
     });
 });
 
-app.get('/self', (req, res) => {
-  sendRequest(req, res, `${API_URL}/athlete`);
-})
-
 app.get('/athletes', (req, res) => {
   sendRequest(req, res, `${API_URL}/athletes`);
 });
