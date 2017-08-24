@@ -11,28 +11,46 @@ var lessRules = {
 const baseConfig = {
   devtool: 'source-map',
   entry: {
-    main: path.join(__dirname, '/src/js/app.js')
+    main: path.join(__dirname, '/src/js/main.js')
   },
   output: {
-    filename: 'js/app.bundle.js',
-    path: path.join(__dirname, 'dist')
+    filename: 'js/main.bundle.js',
+    path: path.join(__dirname, 'dist'),
+    publicPath: '/'
   },
   // devServer: serverConfig,
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: [
           {
             loader: 'babel-loader',
-            query: { compact: false }
+            query: {
+              compact: false,
+              presets: [ 'react', 'es2015' ],
+              plugins: [
+                'react-html-attrs',
+                'transform-decorators-legacy',
+                'transform-class-properties'
+              ]
+            }
           }
         ]
       },
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(lessRules)
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader?limit=100000&name=./img/[hash].[ext]'
+          }
+        ]
       }
+
     ]
   },
   plugins: [

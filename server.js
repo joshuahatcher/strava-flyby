@@ -9,6 +9,13 @@ const app = express();
 
 app.use(express.static(__dirname + '/dist'));
 
+app.use('/login', (req, res) => {
+  res.redirect('https://www.strava.com/oauth/authorize' +
+      '?client_id=' + API_KEYS.id +
+      '&response_type=code' +
+      '&redirect_uri=http://localhost:8080/auth');
+});
+
 app.use('/auth', (req, res) => {
   const code = url.parse(req.url, true).query.code;
   const body = `client_id=${API_KEYS.id}&client_secret=${API_KEYS.secret}&code=${code}`;
@@ -22,7 +29,6 @@ app.use('/auth', (req, res) => {
   )
     .then(response => response.json())
     .then((json) => {
-      console.log(json);
       res.cookie('flyby_access_token', json.access_token);
       res.redirect('/');
     });
