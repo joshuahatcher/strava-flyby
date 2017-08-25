@@ -48,9 +48,8 @@ export default class SearchPanel extends React.Component {
         const paceMap = pace.getAll(activitiesMap);
 
         const buddies = pace.findClosest(constants.user.pace, paceMap);
-        console.log(buddies);
 
-        me.props.setLoading();
+        me.props.setLoading(buddies);
       });
   }
 

@@ -3,7 +3,7 @@ import React from 'react';
 // Compontents
 import Header from '../header';
 
-export default class LoginScreen extends React.Component {
+export default class LoginPanel extends React.Component {
   authenticateUser() {
     document.location = '/login';
   }

@@ -4,6 +4,7 @@ import React from 'react';
 import Background from '../background';
 import Loader from '../loader';
 import SearchPanel from '../search-panel';
+import ResultsPanel from '../results-panel';
 
 // Services
 import api from '../../services/api';
@@ -21,10 +22,19 @@ export default class Main extends React.Component {
       loading: true
     };
     this.setLoading = this.setLoading.bind(this);
+    this.setResults = this.setResults.bind(this); // TODO: Add a router to manage view updates.
   }
 
-  setLoading() {
+  setLoading(results) {
+    if (results) {
+      this.setResults(results);
+    }
+
     this.setState({ loading: !this.state.loading });
+  }
+
+  setResults(results) {
+    this.results = results;
   }
 
   componentDidMount() {
@@ -52,11 +62,15 @@ export default class Main extends React.Component {
 
   render() {
     let loading = this.state.loading;
+    let results = this.results;
     return (
       <div>
         { loading ? (<Loader />) : (
         <div>
-          <SearchPanel user={this.user} setLoading={this.setLoading} />
+          { results ?
+            <ResultsPanel results={this.results} setLoading={this.setLoading} /> :
+            <SearchPanel user={this.user} setLoading={this.setLoading} />
+          }
           <Background friends={this.friends} />
         </div>) }
       </div>

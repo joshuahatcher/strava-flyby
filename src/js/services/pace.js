@@ -23,20 +23,17 @@ const pace = {
   },
 
   findClosest: (base, candidates) => {
-    return Object.keys(candidates).reduce((closePaces, key) => {
+    return Object.keys(candidates).reduce((closePacers, key) => {
       let candidate = candidates[key];
       let friend = constants.friends[key];
 
       // User's own pace will be included, but user will not be in their own friends.
       if (friend && (Math.abs(candidate.pace - base.pace) * 60) <= 15) {
-        closePaces.push({
-          name: `${friend.firstname} ${friend.lastname}`,
-          imgUrl: friend.profile_medium,
-          pace: candidate.pace_legible
-        });
+        friend.pace = {pace: candidate.pace, pace_legible: candidate.pace_legible};
+        closePacers.push(friend);
       } 
 
-      return closePaces;
+      return closePacers;
     }, []);
   }
 }
