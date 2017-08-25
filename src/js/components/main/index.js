@@ -31,7 +31,7 @@ export default class Main extends React.Component {
     const me = this;
 
     let promises = [
-      api.getFriends(),
+      api.getFriends(true),
       api.getSelf()
     ];
 
@@ -42,7 +42,7 @@ export default class Main extends React.Component {
       me.user = responses[1];
 
       api.getUser(me.user.id).then(response => {
-        me.user.pace = pace.getPaceObject(response.recent_run_totals);
+        me.user.pace = pace.getObject(response.recent_run_totals);
         constants.user = me.user;
 
         me.setState({ loading: false });

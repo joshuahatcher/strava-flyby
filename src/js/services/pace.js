@@ -1,5 +1,7 @@
+import constants from './constants';
+
 const pace = {
-  getPaceObject: (params) => {
+  getObject: (params) => {
     const pace = (params.moving_time / 60) / (params.distance / 1609.34);
 
     return {
@@ -8,7 +10,7 @@ const pace = {
     };
   },
 
-  getAllPaces: (activityMap) => {
+  getAll: (activityMap) => {
     let paceMap = {};
 
     for (let athlete in activityMap) {
@@ -18,6 +20,24 @@ const pace = {
     }
 
     return paceMap;
+  },
+
+  findClosest: (base, candidates) => {
+    return Object.keys(candidates).reduce((closePaces, key) => {
+      let candidate = candidates[key];
+      let friend = constants.friends[key];
+
+      // User's own pace will be included, but user will not be in their own friends.
+      if (friend && (Math.abs(candidate.pace - base.pace) * 60) <= 15) {
+        closePaces.push({
+          name: `${friend.firstname} ${friend.lastname}`,
+          imgUrl: friend.profile_medium,
+          pace: candidate.pace_legible
+        });
+      } 
+
+      return closePaces;
+    }, []);
   }
 }
 
@@ -33,12 +53,12 @@ function getLegiblePace(pace) {
 function getAveragePace(activities) {
   const paceParams = activities.reduce((totals, activity) => {
     totals.distance += activity.distance;
-    totals.time += activity.moving_time;
+    totals.moving_time += activity.moving_time;
 
     return totals;
-  }, { distance: 0, elapsed_time: 0 });
+  }, { distance: 0, moving_time: 0 });
 
-  return pace.getPaceObject(paceParams);
+  return pace.getObject(paceParams);
 }
 
 export default pace;

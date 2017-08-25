@@ -20,8 +20,18 @@ const api = {
     return api.get(`https://www.strava.com/api/v3/athletes/${userId}/stats`);
   },
 
-  getFriends: () => {
-    return api.get('https://www.strava.com/api/v3/athlete/friends');
+  getFriends: (mapResults) => {
+    return api.get('https://www.strava.com/api/v3/athlete/friends').then(results => {
+      if (mapResults) {
+        return results.reduce((mappedResults, friend) => {
+          mappedResults[friend.id] = friend;
+
+          return mappedResults;
+        }, {});
+      } else {
+        return results;
+      }
+    });
   },
 
   getActivities: (group = 'following') => {

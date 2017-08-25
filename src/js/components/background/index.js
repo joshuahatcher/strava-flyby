@@ -9,11 +9,12 @@ import './style.less';
 export default class Background extends React.Component {
   listFriends(friends) {
     if (friends) {
-      return friends.map(function(friend, index) {
+      return Object.keys(friends).map(function(key, index) {
+        let imgUrl = friends[key].profile_medium
         // If profile photo is unset, API sends a broken link
-        let imgUrl = friend.profile_medium === 'avatar/athlete/medium.png' ?
+        imgUrl = imgUrl === 'avatar/athlete/medium.png' ?
           'https://d3nn82uaxijpm6.cloudfront.net/assets/avatar/athlete/large-63758b9942e3f074c3ecb84db07928ee.png' :
-          friend.profile_medium;
+          imgUrl;
         return <ProfilePhoto key={index} imgUrl={imgUrl} />;
       });
     }

@@ -6,6 +6,7 @@ import Profile from '../profile';
 
 // Services
 import api from '../../services/api';
+import constants from '../../services/constants';
 import pace from '../../services/pace';
 
 function sortActivitiesByAthlete(activities) {
@@ -44,9 +45,10 @@ export default class SearchPanel extends React.Component {
         // we must get them indirectly by getting all recent activities and sorting by user.
         const runs = activities.filter(activity => activity.type === 'Run');
         const activitiesMap = sortActivitiesByAthlete(runs);
-        const paceMap = pace.getAllPaces(activitiesMap);
+        const paceMap = pace.getAll(activitiesMap);
 
-        console.log(paceMap);
+        const buddies = pace.findClosest(constants.user.pace, paceMap);
+        console.log(buddies);
 
         me.props.setLoading();
       });
