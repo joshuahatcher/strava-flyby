@@ -23,18 +23,20 @@ const pace = {
   },
 
   findClosest: (base, candidates) => {
-    return Object.keys(candidates).reduce((closePacers, key) => {
-      let candidate = candidates[key];
-      let friend = constants.friends[key];
+    return Object.keys(candidates).filter(key => {
+      // Check if user's average pace is within 15 seconds of a candidate;
+      // Must also check if candidate is among friends, because user themself is included among candidates
+      return constants.friends[key] && (Math.abs(candidates[key].pace - base.pace) * 60 <= 15);
+    }).map(pacer => {
+      let friend = constants.friends[pacer];
 
-      // User's own pace will be included, but user will not be in their own friends.
-      if (friend && (Math.abs(candidate.pace - base.pace) * 60) <= 15) {
-        friend.pace = {pace: candidate.pace, pace_legible: candidate.pace_legible};
-        closePacers.push(friend);
-      } 
+      friend.pace = {
+        pace: candidates[pacer].pace,
+        pace_legible: candidates[pacer].pace_legible
+      }
 
-      return closePacers;
-    }, []);
+      return friend;
+    })
   }
 }
 
