@@ -60,4 +60,4 @@ function getAveragePace(activities) {
   return pace.getObject(paceParams);
 }
 
-export default pace;
+module.exports = pace;

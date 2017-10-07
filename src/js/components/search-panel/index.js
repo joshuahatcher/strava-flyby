@@ -5,9 +5,9 @@ import Header from '../header';
 import Profile from '../profile';
 
 // Services
-import api from '../../services/api';
+import { getActivities } from '../../services/api';
 import constants from '../../services/constants';
-import pace from '../../services/pace';
+import { getAll, findClosest } from '../../services/pace';
 
 function sortActivitiesByAthlete(activities) {
   return activities.reduce((activityGroups, activity) => {
@@ -39,15 +39,15 @@ export default class SearchPanel extends React.Component {
     const me = this;
     this.props.setLoading();
 
-    api.getActivities(this.searchParam)
+    getActivities(this.searchParam)
       .then(activities => {
         // Since Strava's API won't return the activities of a single athlete who is not the user,
         // we must get them indirectly by getting all recent activities and sorting by user.
         const runs = activities.filter(activity => activity.type === 'Run');
         const activitiesMap = sortActivitiesByAthlete(runs);
-        const paceMap = pace.getAll(activitiesMap);
+        const paceMap = getAll(activitiesMap);
 
-        const buddies = pace.findClosest(constants.user.pace, paceMap);
+        const buddies = findClosest(constants.user.pace, paceMap);
 
         me.props.setLoading(buddies);
       });

@@ -5,7 +5,7 @@ import LoginPanel from '../login-panel';
 import Main from '../main';
 
 // Services
-import cookies from '../../services/cookies';
+import { getCookie } from '../../services/cookies';
 import constants from '../../services/constants';
 
 // Styles
@@ -13,7 +13,7 @@ import './style.less';
 
 export default class Layout extends React.Component {
   render() {
-    constants.accessToken = cookies.getCookie('flyby_access_token');
+    constants.accessToken = getCookie('flyby_access_token');
 
     return (
       <div>

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   getCookie: (name) => {
     let cookiesArr;
 
