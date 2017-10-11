@@ -43,4 +43,4 @@ function queryParams(params) {
     .join('&');
 }
 
-export default api;
+module.exports = api;

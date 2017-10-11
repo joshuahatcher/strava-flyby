@@ -7,9 +7,9 @@ import SearchPanel from '../search-panel';
 import ResultsPanel from '../results-panel';
 
 // Services
-import api from '../../services/api';
+import { getFriends, getSelf, getUser } from '../../services/api';
 import constants from '../../services/constants';
-import pace from '../../services/pace';
+import { getObject } from '../../services/pace';
 
 // Styles
 import './style.less';
@@ -41,8 +41,8 @@ export default class Main extends React.Component {
     const me = this;
 
     let promises = [
-      api.getFriends(true),
-      api.getSelf()
+      getFriends(true),
+      getSelf()
     ];
 
     Promise.all(promises).then((responses) => {
@@ -51,8 +51,8 @@ export default class Main extends React.Component {
       me.friends = constants.friends = responses[0];
       me.user = responses[1];
 
-      api.getUser(me.user.id).then(response => {
-        me.user.pace = pace.getObject(response.recent_run_totals);
+      getUser(me.user.id).then(response => {
+        me.user.pace = getObject(response.recent_run_totals);
         constants.user = me.user;
 
         me.setState({ loading: false });
