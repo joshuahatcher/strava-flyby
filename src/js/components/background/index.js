@@ -6,10 +6,10 @@ import ProfilePhoto from '../profile/profile-photo';
 // Styles
 import './style.less';
 
-export default class Background extends React.Component {
-  listFriends(friends) {
+const Background = (props) => {
+  const listFriends = (friends) => {
     if (friends) {
-      return Object.keys(friends).map(function(key, index) {
+      return Object.keys(friends).map((key, index) => {
         let imgUrl = friends[key].profile_medium
         // If profile photo is unset, API sends a broken link
         imgUrl = imgUrl === 'avatar/athlete/medium.png' ?
@@ -20,11 +20,11 @@ export default class Background extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="cover translucent flex flex-wrap center-children">
-        {this.listFriends(this.props.friends)}
-      </div>
-    )
-  }
-}
+  return (
+    <div className="cover translucent flex flex-wrap center-children">
+      {listFriends(props.friends)}
+    </div>
+  )
+};
+
+export default Background;

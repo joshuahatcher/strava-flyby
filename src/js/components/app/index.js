@@ -11,14 +11,10 @@ import constants from '../../services/constants';
 // Styles
 import './style.less';
 
-export default class Layout extends React.Component {
-  render() {
-    constants.accessToken = getCookie('flyby_access_token');
+const Layout = (props) => {
+  constants.accessToken = getCookie('flyby_access_token');
 
-    return (
-      <div>
-        { constants.accessToken ? (<Main />) : (<LoginPanel />) }
-      </div>
-    )
-  }
+  return (<div>{ constants.accessToken ? (<Main />) : (<LoginPanel />) }</div>)
 }
+
+export default Layout;
