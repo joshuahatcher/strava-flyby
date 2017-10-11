@@ -1,9 +1,9 @@
 import 'whatwg-fetch';
-import consts from './constants';
+import constants from './constants';
 
 const api = {
   get: (url, params = {}) => {
-    const requestParams = Object.assign({}, params, { access_token: consts.accessToken });
+    const requestParams = Object.assign({}, params, { access_token: constants.accessToken });
 
     url += ('?' + queryParams(requestParams));
 
@@ -18,18 +18,16 @@ const api = {
     return api.get(`https://www.strava.com/api/v3/athletes/${userId}/stats`);
   },
 
-  getFriends: (mapResults) => {
-    return api.get('https://www.strava.com/api/v3/athlete/friends').then(results => {
-      if (mapResults) {
+  getFriends: () => {
+    return api
+      .get('https://www.strava.com/api/v3/athlete/friends')
+      .then(results => {
         return results.reduce((mappedResults, friend) => {
           mappedResults[friend.id] = friend;
 
           return mappedResults;
         }, {});
-      } else {
-        return results;
-      }
-    });
+      });
   },
 
   getActivities: (group = 'following') => {

@@ -38,24 +38,22 @@ export default class Main extends React.Component {
   }
 
   componentDidMount() {
-    const me = this;
-
     let promises = [
-      getFriends(true),
+      getFriends(),
       getSelf()
     ];
 
     Promise.all(promises).then((responses) => {
       const friends = responses[0];
 
-      me.friends = constants.friends = responses[0];
-      me.user = responses[1];
+      this.friends = constants.friends = responses[0];
+      this.user = responses[1];
 
-      getUser(me.user.id).then(response => {
-        me.user.pace = getObject(response.recent_run_totals);
-        constants.user = me.user;
+      getUser(this.user.id).then(response => {
+        this.user.pace = getObject(response.recent_run_totals);
+        constants.user = this.user;
 
-        me.setState({ loading: false });
+        this.setState({ loading: false });
       })
     });
   }
