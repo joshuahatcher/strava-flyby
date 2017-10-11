@@ -52,7 +52,9 @@
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "whatwg-fetch": "^2.0.3"
+  },
   "bugs": {
     "url": "https://github.com/joshuahatcher/strava-flyby/issues"
   },

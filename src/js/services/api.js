@@ -1,15 +1,13 @@
-import $ from 'jquery';
+import 'whatwg-fetch';
 import consts from './constants';
 
 const api = {
   get: (url, params = {}) => {
     const requestParams = Object.assign({}, params, { access_token: consts.accessToken });
 
-    return $.ajax({
-      url: url,
-      type: 'GET',
-      data: requestParams
-    });
+    url += ('?' + queryParams(requestParams));
+
+    return fetch(url).then(results => results.json());
   },
 
   getSelf: () => {
@@ -37,6 +35,12 @@ const api = {
   getActivities: (group = 'following') => {
     return api.get(`https://www.strava.com/api/v3/activities/${group}`, { per_page: 200 })
   }
+}
+
+function queryParams(params) {
+  return Object.keys(params)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    .join('&');
 }
 
 export default api;
