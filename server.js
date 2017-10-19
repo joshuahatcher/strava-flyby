@@ -8,15 +8,11 @@ const API_KEYS = require('./api-keys'); // gitignored
 const API_URL = 'https://www.strava.com/api/v3';
 const app = express();
 
-// app.use(express.static(__dirname + '/dist'));
-
 app.get('/:path/:filename', function(req, res) {
-  console.log('assets');
   res.sendFile(path.join(__dirname, 'dist', req.params.path, req.params.filename));
 });
 
 app.get('/*', function(req, res) {
-  console.log('homepage');
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
