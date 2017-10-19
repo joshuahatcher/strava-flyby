@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 // Components
 import Background from '../background';
@@ -44,9 +45,20 @@ export default class Main extends React.Component {
     ];
 
     Promise.all(promises).then((responses) => {
-      const friends = responses[0];
+      const friends = Object.keys(responses[0])
+        .reduce((friendsObj, key) => {
+          let friend = responses[0][key];
+          // If profile photo is unset, API sends a broken link
+          friend.profile_medium = friend.profile_medium  === 'avatar/athlete/medium.png' ?
+            constants.genericProfilePhotoUrl :
+            friend.profile_medium;
 
-      this.friends = constants.friends = responses[0];
+          friendsObj[key] = friend;
+
+          return friendsObj;
+        }, {});
+
+      this.friends = constants.friends = friends;
       this.user = responses[1];
 
       getUser(this.user.id).then(response => {
@@ -65,10 +77,16 @@ export default class Main extends React.Component {
       <div>
         { loading ? (<Loader />) : (
         <div>
-          { results ?
-            <ResultsPanel results={this.results} setLoading={this.setLoading} /> :
-            <SearchPanel user={this.user} setLoading={this.setLoading} />
-          }
+          <BrowserRouter>
+            <Switch>
+              <Route exact path='/' render={(props) => (
+                <SearchPanel user={this.user} setLoading={this.setLoading} />
+              )} />
+              <Route exact path='/results' render={(props) => (
+                <ResultsPanel results={this.results} setLoading={this.setLoading} />
+              )} />
+            </Switch>
+          </BrowserRouter>
           <Background friends={this.friends} />
         </div>) }
       </div>

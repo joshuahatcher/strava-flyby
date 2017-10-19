@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import Header from '../header';
@@ -22,7 +23,7 @@ function sortActivitiesByAthlete(activities) {
   }, {});
 }
 
-export default class SearchPanel extends React.Component {
+export default class SearchPanel extends Component {
   constructor(props) {
     super(props);
 
@@ -67,7 +68,7 @@ export default class SearchPanel extends React.Component {
               <option value="clubs">From people in my clubs</option>
             </select>
           </p>
-          <button className="submit" onClick={this.getRunningBuddies}>Go</button>
+          <Link to="/results" className="submit" onClick={this.getRunningBuddies}>Go</Link>
         </div>
       </div>
     )

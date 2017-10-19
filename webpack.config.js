@@ -18,7 +18,6 @@ const baseConfig = {
     path: path.join(__dirname, 'dist'),
     publicPath: '/'
   },
-  // devServer: serverConfig,
   module: {
     rules: [
       {

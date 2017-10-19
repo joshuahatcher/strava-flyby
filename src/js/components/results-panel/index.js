@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import Header from '../header';
@@ -7,7 +8,7 @@ import Profile from '../profile';
 // Styles
 import './style.less';
 
-export default class ResultsPanel extends React.Component {
+export default class ResultsPanel extends Component {
   constructor(props) {
     super(props);
     
@@ -30,7 +31,7 @@ export default class ResultsPanel extends React.Component {
         <div className="results block center-children">
           { this.listResults(this.props.results) }
         </div>
-        <button className="submit" onClick={this.returnToSearch}>Back</button>
+        <Link to='/' className="submit">Back</Link>
       </div>
     )
   }
