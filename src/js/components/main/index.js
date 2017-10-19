@@ -6,6 +6,7 @@ import Background from '../background';
 import Loader from '../loader';
 import SearchPanel from '../search-panel';
 import ResultsPanel from '../results-panel';
+import NotFound from '../not-found';
 
 // Services
 import { getFriends, getSelf, getUser } from '../../services/api';
@@ -83,8 +84,9 @@ export default class Main extends React.Component {
                 <SearchPanel user={this.user} setLoading={this.setLoading} />
               )} />
               <Route exact path='/results' render={(props) => (
-                <ResultsPanel results={this.results} setLoading={this.setLoading} />
+                <ResultsPanel results={this.results} />
               )} />
+              <Route component={NotFound} />
             </Switch>
           </BrowserRouter>
           <Background friends={this.friends} />

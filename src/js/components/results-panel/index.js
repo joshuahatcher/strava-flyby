@@ -11,17 +11,14 @@ import './style.less';
 export default class ResultsPanel extends Component {
   constructor(props) {
     super(props);
-    
-    this.returnToSearch = this.returnToSearch.bind(this);
+
+    if (!props.results) {
+      document.location = '/';
+    }
   }
 
   listResults(results) {
     return results.map((result, index) => <Profile key={index} athlete={result} />);
-  }
-
-  returnToSearch() {
-    // TODO: Add a router to manage view updates
-    console.log('Not done yet...');
   }
 
   render() {
