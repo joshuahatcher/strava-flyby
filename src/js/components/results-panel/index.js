@@ -28,7 +28,7 @@ export default class ResultsPanel extends Component {
     return (
       <div className="main-cover cover in-front flex center-children column">
         <h2>{this.props.results.length} Runners Found</h2>
-        <div className="results block center-children">
+        <div className="results content-box flex flex-wrap center-children">
           { this.listResults(this.props.results) }
         </div>
         <Link to='/' className="submit">Back</Link>

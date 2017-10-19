@@ -57,17 +57,19 @@ export default class SearchPanel extends Component {
   render() {
     return (
       <div className="main-cover cover in-front flex center-children">
-        <div className="block center-children">
+        <div className="full-width block center-children">
           <Header title="FlyBy" />
-          <Profile athlete={this.props.user} />
-          <p className="strong">FlyBy is a tool to help runners using Strava to find appropriate running buddies based on pace.</p>
-          <p className="strong">Please choose where you would like to search from:
-            &nbsp;
-            <select onChange={this.setSearchParam}>
-              <option value="following">From people I follow</option>
-              <option value="clubs">From people in my clubs</option>
-            </select>
-          </p>
+          <div className="content-box">
+            <Profile athlete={this.props.user} />
+            <p>FlyBy is a tool to help runners using Strava to find appropriate running buddies based on pace.</p>
+            <p>Please choose where you would like to search from:
+              &nbsp;
+              <select onChange={this.setSearchParam}>
+                <option value="following">From people I follow</option>
+                <option value="clubs">From people in my clubs</option>
+              </select>
+            </p>
+          </div>
           <Link to="/results" className="submit" onClick={this.getRunningBuddies}>Go</Link>
         </div>
       </div>

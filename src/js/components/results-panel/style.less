@@ -1,9 +1,17 @@
 @import '../../../css/variables';
 
 .results {
-  background: @color-orange-transparent;
   height: 80vh;
-  margin: 0 0 1em;
   overflow: auto;
   padding: 0 2em;
+
+  .profile {
+    width: 50%;
+  }
+}
+
+@media (max-width: @x-narrow) {
+  .results .profile {
+    width: 100%;
+  }
 }
