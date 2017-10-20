@@ -12,10 +12,6 @@ app.get('/:path/:filename', function(req, res) {
   res.sendFile(path.join(__dirname, 'dist', req.params.path, req.params.filename));
 });
 
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 app.use('/login', (req, res) => {
   res.redirect('https://www.strava.com/oauth/authorize' +
       '?client_id=' + API_KEYS.id +
@@ -39,6 +35,10 @@ app.use('/auth', (req, res) => {
       res.cookie('flyby_access_token', json.access_token);
       res.redirect('/');
     });
+});
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.get('/athletes', (req, res) => {
