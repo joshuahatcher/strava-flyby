@@ -14,7 +14,7 @@ You can run this app on your local system, but first you must set up private key
 You will only need to run steps 1-6 once.
 
 1. Clone this repo
-2. Navigate to Strava's [developer site](http://labs.strava.com/developers/) and click the link under the "Getting Started" menu to register an app (you aren't actually creating an app here, but the system will give you a personal Client ID and Client Secret which you will need to authenticate to the API).
+2. Navigate to Strava's [developer site](http://labs.strava.com/developers/) and click the "Create/Manage" button under the "Your App" to register an app (you aren't *really* creating an app here, but the system will give you a personal Client ID and Client Secret which you will need to authenticate to the API).
 3. Once you have created a new app, you should have a __Client ID__ and __Client Secret__ on your [My API Application](https://www.strava.com/settings/api) page. Do not share these with anyone.
 4. In your local copy of this repo, navigate to the api-keys.temp.js file.
 5. Replace the placeholder text `<clientId>` and `<clientSecret>` with your new Client ID and Client Secret respectively (make sure both are strings).
