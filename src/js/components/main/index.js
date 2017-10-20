@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 // Components
@@ -16,7 +16,7 @@ import { getObject } from '../../services/pace';
 // Styles
 import './style.less';
 
-export default class Main extends React.Component {
+export default class Main extends Component {
   constructor(props) {
     super(props);
 

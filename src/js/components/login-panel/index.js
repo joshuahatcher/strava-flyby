@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // Compontents
 import Header from '../header';
 
-export default class LoginPanel extends React.Component {
+export default class LoginPanel extends Component {
   authenticateUser() {
     document.location = '/login';
   }

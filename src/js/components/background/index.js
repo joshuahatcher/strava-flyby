@@ -3,9 +3,6 @@ import React from 'react';
 // Components
 import ProfilePhoto from '../profile/profile-photo';
 
-// Styles
-import './style.less';
-
 const Background = (props) => {
   const listFriends = (friends) => {
     if (friends) {
