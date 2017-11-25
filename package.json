@@ -4,9 +4,10 @@
   "description": "An app for connecting athletes using the Strava API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Running tests...\" && exit",
     "start": "webpack && node server.js",
-    "build": "webpack --watch",
+    "build": "webpack",
+    "watch": "webpack --watch",
     "build-dev": "webpack-dev-server --content-base dist --hot --inline"
   },
   "repository": {
